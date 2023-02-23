@@ -1,8 +1,25 @@
+# @format
+
 name: Reuse Deploy
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: "The name of the artifact to download"
+        required: false
+        default: dist
+        type: string
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get the code
+        uses: actions/download-artifacts@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - name: Check the code
+        run: ls
+
       - name: Deploy
         run: echo "Deploying"
