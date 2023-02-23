@@ -68,11 +68,22 @@ jobs:
         with:
           name: dist-files
           path: dist
+        # secrets:
+        #   some-secrets: ${{ secrets.some-secrets }}
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml
-    # with:
-    #   artifact-name: dist-files
+    with:
+      artifact-name: dist-files
+
+  print-outcome-deploy:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the outcome
+        run: |
+          echo "Deploy outcome: "
+          echo " ${{ needs.deploy.outputs.result }} "
 
   report:
     needs: [lint, deploy]
