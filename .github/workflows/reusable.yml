@@ -33,5 +33,5 @@ jobs:
       - name: Deploy
         run: echo "Deploying"
       - name: Set the result
-        id: deploy
+        id: set-result
         run: echo "step-result=success" >> $GITHUB_OUTPUT
